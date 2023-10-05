@@ -8,23 +8,17 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.Result
 
 class ReactiveBlePlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
+    private val pluginController = PluginController()
+
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        initalizePlugin(binding.binaryMessenger, binding.applicationContext)
+        val channel = MethodChannel(binding.binaryMessenger, "flutter_reactive_ble_method")
+        channel.setMethodCallHandler(this)
+
+        pluginController.initialize(binding.binaryMessenger, binding.applicationContext)
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        // deinitalize logic
-    }
-
-    companion object {
-        lateinit var pluginController: PluginController
-        @JvmStatic
-        private fun initalizePlugin(messenger: BinaryMessenger, context: Context) {
-            val channel = MethodChannel(messenger, "flutter_reactive_ble_method")
-            channel.setMethodCallHandler(ReactiveBlePlugin())
-            pluginController = PluginController()
-            pluginController.initialize(messenger, context)
-        }
+        pluginController.deinitialize()
     }
 
     override fun onMethodCall(call: MethodCall, result: Result) {
