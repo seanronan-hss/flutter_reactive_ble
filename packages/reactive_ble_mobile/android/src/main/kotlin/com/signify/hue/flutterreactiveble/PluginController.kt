@@ -54,6 +54,8 @@ class PluginController {
     private val protoConverter = ProtobufMessageConverter()
 
     internal fun initialize(messenger: BinaryMessenger, context: Context) {
+        android.util.Log.d(TAG, "[ORBIT BLE] initialize: start")
+
         bleClient = com.signify.hue.flutterreactiveble.ble.ReactiveBleClient(context)
 
         scanchannel = EventChannel(messenger, "flutter_reactive_ble_scan")
@@ -70,6 +72,9 @@ class PluginController {
         deviceConnectionChannel.setStreamHandler(deviceConnectionHandler)
         charNotificationChannel.setStreamHandler(charNotificationHandler)
         bleStatusChannel.setStreamHandler(bleStatusHandler)
+
+        android.util.Log.d(TAG, "[ORBIT BLE] initialize: end")
+
     }
 
     internal fun deinitialize() {
@@ -82,13 +87,17 @@ class PluginController {
     }
 
     private fun initializeClient(call: MethodCall, result: Result) {
+        android.util.Log.d(TAG, "[ORBIT BLE] initializeClient: start")
         bleClient.initializeClient()
         result.success(null)
+        android.util.Log.d(TAG, "[ORBIT BLE] initializeClient: end")
     }
 
     private fun deinitializeClient(call: MethodCall, result: Result) {
+        android.util.Log.d(TAG, "[ORBIT BLE] deinitializeClient: start")
         deinitialize()
         result.success(null)
+        android.util.Log.d(TAG, "[ORBIT BLE] deinitializeClient: end")
     }
 
     private fun scanForDevices(call: MethodCall, result: Result) {

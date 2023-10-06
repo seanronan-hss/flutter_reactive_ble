@@ -8,17 +8,22 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.Result
 
 class ReactiveBlePlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
-    private val pluginController = PluginController()
+    private lateinit var pluginController : PluginController;
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+        android.util.Log.d('REACTIVEBLE', "[BLE] onAttachedToEngine: start")
         val channel = MethodChannel(binding.binaryMessenger, "flutter_reactive_ble_method")
         channel.setMethodCallHandler(this)
 
+        pluginController = PluginController()
         pluginController.initialize(binding.binaryMessenger, binding.applicationContext)
+        android.util.Log.d('REACTIVEBLE', "[ORBIT BLE] onAttachedToEngine: end")
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-//        pluginController.deinitialize()
+        android.util.Log.d('REACTIVEBLE', "[ORBIT BLE] onDetachedFromEngine: start")
+        pluginController.deinitialize()
+        android.util.Log.d('REACTIVEBLE', "[ORBIT BLE] onDetachedFromEngine: end")
     }
 
     override fun onMethodCall(call: MethodCall, result: Result) {
