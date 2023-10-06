@@ -18,7 +18,7 @@ class ReactiveBlePlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        pluginController.deinitialize()
+//        pluginController.deinitialize()
     }
 
     override fun onMethodCall(call: MethodCall, result: Result) {
