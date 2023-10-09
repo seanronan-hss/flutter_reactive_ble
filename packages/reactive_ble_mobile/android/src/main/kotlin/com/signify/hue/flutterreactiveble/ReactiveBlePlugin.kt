@@ -22,7 +22,7 @@ class ReactiveBlePlugin : FlutterPlugin, MethodChannel.MethodCallHandler {
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         android.util.Log.d('REACTIVEBLE', "[ORBIT BLE] onDetachedFromEngine: start")
-        pluginController.deinitialize()
+
         android.util.Log.d('REACTIVEBLE', "[ORBIT BLE] onDetachedFromEngine: end")
     }
 
